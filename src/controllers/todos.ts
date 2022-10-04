@@ -11,3 +11,18 @@ export const createTodo: RequestHandler = (req, res, next) => {
 
  res.status(201).json({message: 'created todo', createdTodo: newTodo})
 }
+
+export const getTodos: RequestHandler = (req, res, next) => {
+ return res.json({todos: TODOS})
+}
+
+export const updateTodos: RequestHandler<{id: string}> = (req, res, next) => {
+ const todoId = req.params.id;
+ const updatedText = (req.body as {text: string}).text;
+
+ const todoIndex = TODOS.findIndex(todo => todo.id === todoId)
+
+ if (todoIndex < 0){
+  throw new Error('cannot find that to-do item')
+ }
+}
